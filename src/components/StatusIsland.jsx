@@ -50,7 +50,7 @@ export default function StatusIsland({
     >
       {/* 状态岛主容器 - 简约胶囊形态 */}
       <div 
-        className="flex items-center rounded-full transition-all duration-500 ease-out relative h-7 bg-white shadow-sm border border-gray-200/60 px-1"
+        className="flex items-center rounded-full transition-all duration-500 ease-out relative h-7 bg-transparent px-0"
       >
         {/* 展开内容区 - 始终显示 */}
         <div className="flex items-center transition-all duration-400 ease-out max-w-[600px] opacity-100">
@@ -58,7 +58,7 @@ export default function StatusIsland({
           {/* 理解状态 - 可视化 AI 思考过程 */}
           {state === 'analyzing' && (
             <div className="flex items-center gap-2 px-1.5 animate-fade-in-up">
-              <span className="text-[11px] font-medium text-blue-600 whitespace-nowrap">正在理解</span>
+              <span className="text-[11px] font-medium text-gray-500 whitespace-nowrap">正在理解</span>
               <div className="flex gap-0.5">
                 <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -69,7 +69,7 @@ export default function StatusIsland({
           
           {state === 'thinking' && (
             <div className="flex items-center gap-2 px-1.5 animate-fade-in-up">
-              <span className="text-[11px] font-medium text-blue-600 whitespace-nowrap">思考中</span>
+              <span className="text-[11px] font-medium text-gray-500 whitespace-nowrap">思考中</span>
               <div className="flex gap-0.5">
                 <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -88,9 +88,9 @@ export default function StatusIsland({
                   className="
                     flex items-center gap-1 px-2 py-1 rounded-full 
                     text-[11px] font-medium whitespace-nowrap
-                    bg-gray-50 hover:bg-gray-100 
+                    bg-white hover:bg-gray-50 
                     text-gray-600 hover:text-gray-900 
-                    border border-gray-100 hover:border-gray-200
+                    shadow-sm border border-gray-100/50
                     transition-all duration-200
                   "
                 >
@@ -172,7 +172,7 @@ export default function StatusIsland({
           className={`
             relative flex-shrink-0 flex items-center justify-center cursor-pointer
             transition-all duration-300 rounded-full w-6 h-6
-            ${isProcessing ? 'text-blue-600' : 'text-blue-600'}
+            ${isProcessing ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}
           `}
           onClick={onToggleSidebar}
           title="打开 AI 助手"
@@ -186,7 +186,7 @@ export default function StatusIsland({
           )}
           
           {/* AI 图标 - 始终可见，强调载体身份 */}
-          <div className={`relative z-10 flex items-center justify-center w-5 h-5 rounded-full transition-all duration-300 ${isProcessing ? 'bg-blue-50 scale-95' : 'bg-blue-50'}`}>
+          <div className={`relative z-10 flex items-center justify-center w-5 h-5 rounded-full transition-all duration-300 ${isProcessing ? 'bg-transparent scale-95' : 'bg-transparent hover:bg-gray-100'}`}>
             <Bot 
               size={14} 
               strokeWidth={2.5}
