@@ -4,6 +4,7 @@ import DesignPage from './DesignPage';
 import ShoppingPage from './ShoppingPage';
 import FinancePage from './FinancePage';
 import CodePage from './CodePage';
+import BondPage from './BondPage';
 
 export default function PageContent({ type }) {
   const pages = {
@@ -11,7 +12,8 @@ export default function PageContent({ type }) {
     design: DesignPage,
     shopping: ShoppingPage,
     finance: FinancePage,
-    code: CodePage
+    code: CodePage,
+    bond: BondPage
   };
   
   const Component = pages[type] || (() => (

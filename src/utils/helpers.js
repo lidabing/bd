@@ -1,4 +1,4 @@
-import { Tag, ThumbsUp, Scale, Code, Bug, Zap, ListVideo, Star, MessageSquare, TrendingUp, AlertTriangle, Activity, Lightbulb, Share, CheckCircle2, FileText, Globe, ShoppingCart, Bookmark, Clock, Target, Sparkles } from 'lucide-react';
+import { Tag, ThumbsUp, Scale, Code, Bug, Zap, ListVideo, Star, MessageSquare, TrendingUp, AlertTriangle, Activity, Lightbulb, Share, CheckCircle2, FileText, Globe, ShoppingCart, Bookmark, Clock, Target, Sparkles, Percent } from 'lucide-react';
 
 export const getRandomDelay = () => Math.floor(Math.random() * (6000 - 2000 + 1) + 2000);
 
@@ -37,6 +37,14 @@ export const getAiSuggestions = (pageType) => {
       { id: 'competitors', label: '竞品对比', icon: Scale, color: 'text-purple-600' },
       { id: 'news', label: '相关新闻', icon: FileText, color: 'text-amber-600' },
       { id: 'ai_analysis', label: 'AI 诊断', icon: Sparkles, color: 'text-indigo-600' }
+    ],
+    bond: [
+      { id: 'premium_analysis', label: '溢价率分析', icon: Percent, color: 'text-blue-600' },
+      { id: 'redemption_check', label: '强赎监控', icon: AlertTriangle, color: 'text-rose-600' },
+      { id: 'ytm_calc', label: '收益率计算', icon: Activity, color: 'text-emerald-600' },
+      { id: 'underlying_stock', label: '正股诊断', icon: TrendingUp, color: 'text-purple-600' },
+      { id: 'clause_reminder', label: '条款提醒', icon: FileText, color: 'text-amber-600' },
+      { id: 'arbitrage', label: '套利机会', icon: Sparkles, color: 'text-indigo-600' }
     ],
     design: [
       { id: 'summary', label: '设计哲学', icon: Lightbulb, color: 'text-indigo-600' },

@@ -98,6 +98,14 @@ function App() {
     if (action.id === 'refactor') responseText = "建议重构：提取验证逻辑为独立函数，使用 async/await 替代 Promise 链。";
     if (action.id === 'test') responseText = "已生成 5 个单元测试用例，覆盖正常流程和边界情况。";
     if (action.id === 'document') responseText = "已生成 JSDoc 格式文档，包含函数说明、参数类型和返回值描述。";
+
+    // 可转债相关
+    if (action.id === 'premium_analysis') responseText = "当前转股溢价率 25.32%，处于历史 60% 分位，估值合理偏高。";
+    if (action.id === 'redemption_check') responseText = "正股价格需上涨 15% 才能触发强赎条款，当前距离触发还需 12 个交易日。";
+    if (action.id === 'ytm_calc') responseText = "持有到期税前收益率为 2.15%，高于同期限国债收益率。";
+    if (action.id === 'underlying_stock') responseText = "正股兴业银行近期基本面稳健，市盈率 4.5倍，处于低估区间。";
+    if (action.id === 'clause_reminder') responseText = "注意：下修条款计数已达 10/15 天，若正股继续下跌可能触发下修博弈。";
+    if (action.id === 'arbitrage') responseText = "当前未发现显著的折价套利机会，建议关注正股波动的波段操作机会。";
     if (action.id === 'translate_code') responseText = "代码已翻译为 Python 版本，保持相同的业务逻辑。";
     
     // 视频相关
