@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Bot, RotateCw, Pin, PinOff, ChevronDown } from 'lucide-react';
+import { Bot, Pin, PinOff, ChevronDown, Sparkles } from 'lucide-react';
 
 export default function StatusIsland({ 
   state, 
@@ -15,7 +15,7 @@ export default function StatusIsland({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   
-  // 显示前2个，其余放入下拉菜单
+  // 核心原则：仅展示前2个最重要的建议
   const visibleActions = actions.slice(0, 2);
   const moreActions = actions.slice(2);
   
@@ -40,71 +40,101 @@ export default function StatusIsland({
     onLeave();
   };
 
+  // 状态判断
+  const isProcessing = state === 'analyzing' || state === 'thinking';
+  const showActions = (state === 'hover' || isPinned) && visibleActions.length > 0;
+
   return (
     <div 
-      className="relative my-auto flex items-center justify-end transition-all duration-500 cubic-bezier(0.19, 1, 0.22, 1) mr-2 z-50"
-      onMouseEnter={onHover}
-      onMouseLeave={handleMouseLeave}
+      className="relative my-auto flex items-center justify-end transition-all duration-500 z-50"
     >
-      <div className={`flex items-center h-[32px] rounded-full transition-all duration-300 relative ${isExpanded ? 'bg-white/95 backdrop-blur-sm border border-gray-200/80 px-1.5 ml-2 shadow-[0_2px_10px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]' : 'bg-transparent'}`}>
-        <div 
-          className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center transition-all cursor-pointer ${isExpanded ? 'text-blue-600 bg-blue-50/50' : 'text-[#5f6368] hover:bg-[#e0e3e7]'} ${state === 'analyzing' ? 'animate-pulse text-blue-600' : ''}`}
-          onClick={onToggleSidebar}
-        >
-          {state === 'analyzing' || state === 'thinking' ? (
-            <RotateCw size={15} className="animate-spin text-blue-500" />
-          ) : (
-            <Bot size={16} strokeWidth={2.5} />
-          )}
-        </div>
-
-        <div className={`flex items-center transition-all duration-300 ${isExpanded ? 'w-auto opacity-100 pl-1.5' : 'w-0 opacity-0 overflow-hidden'}`}>
+      {/* 状态岛主容器 - 简约胶囊形态 */}
+      <div 
+        className="flex items-center rounded-full transition-all duration-500 ease-out relative h-7 bg-white shadow-sm border border-gray-200/60 px-1"
+      >
+        {/* 展开内容区 - 始终显示 */}
+        <div className="flex items-center transition-all duration-400 ease-out max-w-[600px] opacity-100">
+          
+          {/* 理解状态 - 可视化 AI 思考过程 */}
           {state === 'analyzing' && (
-            <span className="text-[12px] font-medium text-blue-600 px-2 whitespace-nowrap animate-pulse">正在理解页面...</span>
-          )}
-          {state === 'thinking' && (
-            <div className="flex items-center gap-2 px-2 whitespace-nowrap">
-              <span className="text-[12px] font-medium text-blue-600 animate-pulse">正在生成...</span>
+            <div className="flex items-center gap-2 px-1.5 animate-fade-in-up">
+              <span className="text-[11px] font-medium text-blue-600 whitespace-nowrap">正在理解</span>
+              <div className="flex gap-0.5">
+                <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              </div>
             </div>
           )}
-          {(state === 'hover' || isPinned || state === 'suggestion') && (
-            <div className="flex items-center gap-2 animate-slide-in-right">
-              {state === 'suggestion' && !isPinned && (
-                <span className="text-[12px] font-medium text-blue-600 px-1 whitespace-nowrap animate-pulse">已生成 {actions.length} 个建议</span>
-              )}
-              {/* 显示前2个建议按钮 */}
-              {(state === 'hover' || isPinned) && visibleActions.map((action, idx) => (
+          
+          {state === 'thinking' && (
+            <div className="flex items-center gap-2 px-1.5 animate-fade-in-up">
+              <span className="text-[11px] font-medium text-blue-600 whitespace-nowrap">思考中</span>
+              <div className="flex gap-0.5">
+                <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              </div>
+            </div>
+          )}
+
+          {/* 核心操作建议 - 仅展示最重要的 1-2 个 */}
+          {showActions && (
+            <div className="flex items-center gap-1 pl-0.5 animate-slide-in-right">
+              {visibleActions.map((action, idx) => (
                 <button
                   key={action.id}
                   onClick={(e) => { e.stopPropagation(); onAction(action); }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-gray-50 hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200 whitespace-nowrap border border-transparent hover:border-gray-200/60"
-                  style={{ animationDelay: `${idx * 100}ms`, animationFillMode: 'both' }}
+                  className="
+                    flex items-center gap-1 px-2 py-1 rounded-full 
+                    text-[11px] font-medium whitespace-nowrap
+                    bg-gray-50 hover:bg-gray-100 
+                    text-gray-600 hover:text-gray-900 
+                    border border-gray-100 hover:border-gray-200
+                    transition-all duration-200
+                  "
                 >
-                  <action.icon size={14} className={action.color} />
+                  <action.icon size={12} className={action.color} />
                   <span>{action.label}</span>
                 </button>
               ))}
               
-              {/* 更多建议下拉菜单 */}
-              {(state === 'hover' || isPinned) && moreActions.length > 0 && (
-                <div 
-                  className="relative"
-                  ref={dropdownRef}
-                >
+              {/* 更多建议 - 收纳于下拉菜单，保持简约 */}
+              {moreActions.length > 0 && (
+                <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={(e) => { 
                       e.stopPropagation(); 
                       setDropdownOpen(!dropdownOpen); 
                     }}
-                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 whitespace-nowrap ${dropdownOpen ? 'bg-gray-100 text-gray-900' : 'bg-transparent hover:bg-gray-100 text-gray-500 hover:text-gray-700'}`}
+                    className={`
+                      flex items-center justify-center w-6 h-6 rounded-full 
+                      transition-all duration-200
+                      ${dropdownOpen 
+                        ? 'bg-gray-100 text-gray-800' 
+                        : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
+                      }
+                    `}
                   >
-                    <span>更多</span>
-                    <ChevronDown size={13} className={`transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown 
+                      size={12} 
+                      className={`transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} 
+                    />
                   </button>
                   
                   {/* 下拉菜单 */}
                   {dropdownOpen && (
-                    <div className="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-md border border-gray-100 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] py-1.5 min-w-[180px] z-[200] overflow-hidden animate-fade-in-up origin-top-right">
+                    <div className="
+                      absolute top-full right-0 mt-2 
+                      bg-white/95 backdrop-blur-lg 
+                      border border-gray-100 rounded-xl 
+                      shadow-[0_8px_30px_rgba(0,0,0,0.12)] 
+                      py-1.5 min-w-[180px] z-[200] 
+                      animate-fade-in-up origin-top-right
+                    ">
+                      <div className="px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                        更多操作
+                      </div>
                       {moreActions.map((action) => (
                         <button
                           key={action.id}
@@ -113,9 +143,16 @@ export default function StatusIsland({
                             onAction(action); 
                             setDropdownOpen(false); 
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-2.5 text-[12px] font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors text-left group"
+                          className="
+                            w-full flex items-center gap-2.5 px-3 py-2 
+                            text-[11px] font-medium text-gray-600 
+                            hover:bg-blue-50 hover:text-blue-600 
+                            transition-all duration-150 text-left group
+                          "
                         >
-                          <action.icon size={14} className={`${action.color} group-hover:scale-110 transition-transform`} />
+                          <div className="w-6 h-6 rounded-md bg-gray-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
+                            <action.icon size={12} className={`${action.color} group-hover:text-blue-600 transition-colors`} />
+                          </div>
                           <span>{action.label}</span>
                         </button>
                       ))}
@@ -125,18 +162,37 @@ export default function StatusIsland({
               )}
             </div>
           )}
-          {(state === 'hover' || isPinned) && (
+        </div>
+
+        {/* 分隔线 */}
+        <div className="w-px h-3 bg-gray-200/80 mx-1" />
+
+        {/* AI 核心图标 - 移至最右侧，替换 Pin */}
+        <div 
+          className={`
+            relative flex-shrink-0 flex items-center justify-center cursor-pointer
+            transition-all duration-300 rounded-full w-6 h-6
+            ${isProcessing ? 'text-blue-600' : 'text-blue-600'}
+          `}
+          onClick={onToggleSidebar}
+          title="打开 AI 助手"
+        >
+          {/* 理解过程的动态光环 */}
+          {isProcessing && (
             <>
-              <div className="w-px h-3.5 bg-gray-200 mx-2"></div>
-              <button 
-                onClick={(e) => { e.stopPropagation(); onTogglePin(); }} 
-                className={`p-1.5 rounded-full hover:bg-gray-100 transition-colors ${isPinned ? 'text-blue-600 bg-blue-50' : 'text-gray-400 hover:text-gray-600'}`}
-                title={isPinned ? "取消固定" : "固定状态栏"}
-              >
-                {isPinned ? <Pin size={12} fill="currentColor"/> : <PinOff size={12} />}
-              </button>
+              <div className="absolute inset-0 rounded-full bg-blue-500/10 animate-ping" />
+              <div className="absolute inset-0 rounded-full border-2 border-blue-200 border-t-blue-500 animate-spin" style={{ animationDuration: '1s' }} />
             </>
           )}
+          
+          {/* AI 图标 - 始终可见，强调载体身份 */}
+          <div className={`relative z-10 flex items-center justify-center w-5 h-5 rounded-full transition-all duration-300 ${isProcessing ? 'bg-blue-50 scale-95' : 'bg-blue-50'}`}>
+            <Bot 
+              size={14} 
+              strokeWidth={2.5}
+              className="transition-transform duration-300"
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Layers, Zap, Cpu, RotateCw } from 'lucide-react';
+import { Sparkles, Layers, Zap, Cpu, RotateCw, Bot, ChevronDown } from 'lucide-react';
 import { CONTENT_COLORS } from '../../constants/styles';
 
 export default function DesignPage() {
@@ -35,35 +35,67 @@ export default function DesignPage() {
       
       <div className="border-t border-gray-100 pt-20 mt-20">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">状态岛设计系统</h2>
-          <p className="text-gray-500">The Status Island System</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">状态岛设计哲学</h2>
+          <p className="text-gray-500">The Status Island Philosophy</p>
         </div>
         <div className="space-y-12">
+          {/* 阶段 1 */}
           <div className="flex items-center gap-12">
             <div className="w-1/3 text-right space-y-2">
-              <h3 className="text-lg font-bold text-gray-900">01. 感知与理解</h3>
-              <p className="text-sm text-gray-500">当页面加载时，状态岛自动展开，通过蓝色旋转光效示意 AI 正在阅读并提取关键信息。</p>
+              <h3 className="text-lg font-bold text-gray-900">01. 载体与入口</h3>
+              <p className="text-sm text-gray-500">状态岛不仅是状态指示器，更是 AI 的具象化载体。它常驻于此，作为用户与 AI 交互的统一入口，随时待命。</p>
             </div>
             <div className="flex-1 bg-gray-50 rounded-2xl p-8 border border-gray-100 flex items-center justify-center">
-              <div className="bg-white rounded-full px-4 py-2 flex items-center gap-3 shadow-sm border border-blue-100">
-                <RotateCw size={16} className="text-blue-600 animate-spin" />
-                <span className="text-xs font-medium text-gray-600">正在分析页面...</span>
+              <div className="bg-white/80 backdrop-blur-sm rounded-full px-1.5 py-1.5 flex items-center gap-3 shadow-sm border border-gray-200/60">
+                <div className="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                  <Bot size={16} strokeWidth={2.5} />
+                </div>
               </div>
             </div>
           </div>
+
+          {/* 阶段 2 */}
           <div className="flex items-center gap-12 flex-row-reverse">
             <div className="w-1/3 text-left space-y-2">
-              <h3 className="text-lg font-bold text-gray-900">02. 建议就绪</h3>
-              <p className="text-sm text-gray-500">分析完成后，收缩为静默图标。当用户鼠标悬停时，流畅滑出基于当前场景的核心操作建议。</p>
+              <h3 className="text-lg font-bold text-gray-900">02. 理解的过程</h3>
+              <p className="text-sm text-gray-500">在页面加载过程中，通过动态的光环与呼吸效果，可视化 AI "正在阅读"与"理解"页面的思维过程，建立用户信任。</p>
             </div>
-            <div className="flex-1 bg-gray-50 rounded-2xl p-8 border border-gray-100 flex items-center justify-center relative">
-              <div className="bg-white rounded-full pl-1 pr-1 py-1 flex items-center gap-2 shadow-lg border border-gray-100">
-                <div className="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-                  <Sparkles size={14} fill="currentColor" />
+            <div className="flex-1 bg-gray-50 rounded-2xl p-8 border border-gray-100 flex items-center justify-center">
+              <div className="bg-white/90 backdrop-blur-sm rounded-full px-1.5 py-1.5 flex items-center gap-2 shadow-sm border border-gray-200/60">
+                <div className="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 relative">
+                  <div className="absolute inset-0 rounded-full border-2 border-blue-100 border-t-blue-500 animate-spin" />
+                  <Bot size={16} strokeWidth={2.5} className="scale-90" />
                 </div>
-                <div className="flex gap-1 pr-1">
-                  <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-600">设计哲学</span>
-                  <span className="px-3 py-1 bg-white hover:bg-gray-50 rounded-full text-xs font-medium text-gray-600 border border-gray-100">分享卡片</span>
+                <span className="text-xs font-medium text-blue-600 pr-3 flex items-center gap-1">
+                  正在理解页面
+                  <span className="flex gap-0.5 pt-1">
+                    <span className="w-1 h-1 bg-blue-600 rounded-full animate-bounce"></span>
+                    <span className="w-1 h-1 bg-blue-600 rounded-full animate-bounce delay-75"></span>
+                    <span className="w-1 h-1 bg-blue-600 rounded-full animate-bounce delay-150"></span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 阶段 3 */}
+          <div className="flex items-center gap-12">
+            <div className="w-1/3 text-right space-y-2">
+              <h3 className="text-lg font-bold text-gray-900">03. 关键行动建议</h3>
+              <p className="text-sm text-gray-500">理解完成后，仅展示 1-2 个最核心的建议操作，避免信息过载。更多能力收纳于下拉菜单，保持界面简约不打扰。</p>
+            </div>
+            <div className="flex-1 bg-gray-50 rounded-2xl p-8 border border-gray-100 flex items-center justify-center">
+              <div className="bg-white/90 backdrop-blur-sm rounded-full px-1.5 py-1.5 flex items-center gap-2 shadow-sm border border-gray-200/60">
+                <div className="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                  <Bot size={16} strokeWidth={2.5} />
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-xs font-medium text-gray-600">全网比价</div>
+                  <div className="px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-xs font-medium text-gray-600">评论摘要</div>
+                  <div className="w-px h-3 bg-gray-200 mx-1"></div>
+                  <div className="px-2 py-1 rounded-full hover:bg-gray-100 text-gray-400">
+                    <ChevronDown size={14} />
+                  </div>
                 </div>
               </div>
             </div>
