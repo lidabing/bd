@@ -11,12 +11,12 @@ export default function SidePanel({ open, onClose, chatHistory, onNewMessage, ac
   return (
     <div 
       className={`
-        absolute top-4 bottom-4 right-4 w-[380px] 
-        bg-white/95 backdrop-blur-xl rounded-xl
+        w-[400px] h-full
+        bg-white/95 backdrop-blur-xl
         shadow-[0_8px_30px_rgba(0,0,0,0.12)] 
-        border border-gray-200 z-40 flex flex-col overflow-hidden
-        transition-all duration-300 origin-top-right
-        ${open ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-95 pointer-events-none translate-x-4'}
+        border-l border-gray-200 z-40 flex flex-col overflow-hidden
+        transition-all duration-300
+        ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}
       `}
     >
       <div className="h-14 flex items-center justify-between px-4 border-b border-gray-100">

@@ -4,7 +4,7 @@ import { ThumbsUp, ThumbsDown } from 'lucide-react';
 export default function MessageItem({ msg }) {
   if (msg.type === 'result' && msg.action) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm animate-in fade-in zoom-in-95 duration-200">
+      <div className="w-full bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm animate-in fade-in zoom-in-95 duration-200">
         <div className="px-3 py-2 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
           <div className={`p-1 rounded ${msg.action.color ? msg.action.color.replace('text-', 'bg-').replace('600', '100') : 'bg-gray-100'}`}>
             {msg.action.icon && React.createElement(msg.action.icon, { size: 12, className: msg.action.color })}
