@@ -26,7 +26,10 @@ function App() {
     const simulateAiAnalysis = async () => {
       if (!activeTab) return;
       
+      // 重置状态，模拟重新加载
+      setCurrentActions([]); 
       setAiState('analyzing');
+      
       await getRandomDelay();
       setAiState('thinking');
       await getRandomDelay();

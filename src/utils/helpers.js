@@ -1,6 +1,8 @@
 import { Tag, ThumbsUp, Scale, Code, Bug, Zap, ListVideo, Star, MessageSquare, TrendingUp, AlertTriangle, Activity, Lightbulb, Share, CheckCircle2, FileText, Globe, ShoppingCart, Bookmark, Clock, Target, Sparkles, Percent } from 'lucide-react';
 
-export const getRandomDelay = () => Math.floor(Math.random() * (6000 - 2000 + 1) + 2000);
+export const getRandomDelay = () => new Promise(resolve => 
+  setTimeout(resolve, Math.floor(Math.random() * (1000 - 500 + 1) + 500))
+);
 
 export const getAiSuggestions = (pageType) => {
   const type = pageType || 'design';
