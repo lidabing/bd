@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Sparkles, RotateCw, Pin, PinOff, ChevronDown } from 'lucide-react';
+import { Bot, RotateCw, Pin, PinOff, ChevronDown } from 'lucide-react';
 
 export default function StatusIsland({ 
   state, 
@@ -42,45 +42,45 @@ export default function StatusIsland({
 
   return (
     <div 
-      className="relative my-auto flex items-center justify-end transition-all duration-500 cubic-bezier(0.19, 1, 0.22, 1) mr-1 z-50"
+      className="relative my-auto flex items-center justify-end transition-all duration-500 cubic-bezier(0.19, 1, 0.22, 1) mr-2 z-50"
       onMouseEnter={onHover}
       onMouseLeave={handleMouseLeave}
     >
-      <div className={`flex items-center h-[26px] rounded-full transition-all duration-300 relative ${isExpanded ? 'bg-white border border-gray-200 px-1 ml-2 shadow-sm' : 'bg-transparent'}`}>
+      <div className={`flex items-center h-[32px] rounded-full transition-all duration-300 relative ${isExpanded ? 'bg-white/95 backdrop-blur-sm border border-gray-200/80 px-1.5 ml-2 shadow-[0_2px_10px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]' : 'bg-transparent'}`}>
         <div 
-          className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center transition-all cursor-pointer ${isExpanded ? 'text-blue-600' : 'text-[#5f6368] hover:bg-[#e0e3e7]'} ${state === 'analyzing' ? 'animate-pulse text-blue-600' : ''}`}
+          className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center transition-all cursor-pointer ${isExpanded ? 'text-blue-600 bg-blue-50/50' : 'text-[#5f6368] hover:bg-[#e0e3e7]'} ${state === 'analyzing' ? 'animate-pulse text-blue-600' : ''}`}
           onClick={onToggleSidebar}
         >
           {state === 'analyzing' || state === 'thinking' ? (
-            <RotateCw size={14} className="animate-spin text-blue-500" />
+            <RotateCw size={15} className="animate-spin text-blue-500" />
           ) : (
-            <Sparkles size={14} fill={isExpanded ? "currentColor" : "none"} />
+            <Bot size={16} strokeWidth={2.5} />
           )}
         </div>
 
-        <div className={`flex items-center transition-all duration-300 ${isExpanded ? 'w-auto opacity-100 pl-1' : 'w-0 opacity-0 overflow-hidden'}`}>
+        <div className={`flex items-center transition-all duration-300 ${isExpanded ? 'w-auto opacity-100 pl-1.5' : 'w-0 opacity-0 overflow-hidden'}`}>
           {state === 'analyzing' && (
-            <span className="text-[11px] font-medium text-blue-600 px-2 whitespace-nowrap animate-pulse">正在理解页面...</span>
+            <span className="text-[12px] font-medium text-blue-600 px-2 whitespace-nowrap animate-pulse">正在理解页面...</span>
           )}
           {state === 'thinking' && (
             <div className="flex items-center gap-2 px-2 whitespace-nowrap">
-              <span className="text-[11px] font-medium text-blue-600 animate-pulse">正在生成...</span>
+              <span className="text-[12px] font-medium text-blue-600 animate-pulse">正在生成...</span>
             </div>
           )}
           {(state === 'hover' || isPinned || state === 'suggestion') && (
-            <div className="flex items-center gap-1.5 animate-slide-in-right">
+            <div className="flex items-center gap-2 animate-slide-in-right">
               {state === 'suggestion' && !isPinned && (
-                <span className="text-[11px] font-medium text-blue-600 px-1 whitespace-nowrap animate-pulse">已生成 {actions.length} 个建议</span>
+                <span className="text-[12px] font-medium text-blue-600 px-1 whitespace-nowrap animate-pulse">已生成 {actions.length} 个建议</span>
               )}
               {/* 显示前2个建议按钮 */}
               {(state === 'hover' || isPinned) && visibleActions.map((action, idx) => (
                 <button
                   key={action.id}
                   onClick={(e) => { e.stopPropagation(); onAction(action); }}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-transparent hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200 whitespace-nowrap"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-gray-50 hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all duration-200 whitespace-nowrap border border-transparent hover:border-gray-200/60"
                   style={{ animationDelay: `${idx * 100}ms`, animationFillMode: 'both' }}
                 >
-                  <action.icon size={13} className={action.color} />
+                  <action.icon size={14} className={action.color} />
                   <span>{action.label}</span>
                 </button>
               ))}
@@ -96,15 +96,15 @@ export default function StatusIsland({
                       e.stopPropagation(); 
                       setDropdownOpen(!dropdownOpen); 
                     }}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium bg-transparent hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-all duration-200 whitespace-nowrap"
+                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 whitespace-nowrap ${dropdownOpen ? 'bg-gray-100 text-gray-900' : 'bg-transparent hover:bg-gray-100 text-gray-500 hover:text-gray-700'}`}
                   >
                     <span>更多</span>
-                    <ChevronDown size={12} className={`transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={13} className={`transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
                   
                   {/* 下拉菜单 */}
                   {dropdownOpen && (
-                    <div className="absolute top-full right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl py-1 min-w-[160px] z-[200]">
+                    <div className="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-md border border-gray-100 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] py-1.5 min-w-[180px] z-[200] overflow-hidden animate-fade-in-up origin-top-right">
                       {moreActions.map((action) => (
                         <button
                           key={action.id}
@@ -113,9 +113,9 @@ export default function StatusIsland({
                             onAction(action); 
                             setDropdownOpen(false); 
                           }}
-                          className="w-full flex items-center gap-2 px-3 py-2 text-[11px] font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors text-left"
+                          className="w-full flex items-center gap-3 px-4 py-2.5 text-[12px] font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors text-left group"
                         >
-                          <action.icon size={13} className={action.color} />
+                          <action.icon size={14} className={`${action.color} group-hover:scale-110 transition-transform`} />
                           <span>{action.label}</span>
                         </button>
                       ))}
@@ -127,12 +127,13 @@ export default function StatusIsland({
           )}
           {(state === 'hover' || isPinned) && (
             <>
-              <div className="w-px h-3 bg-gray-200 mx-1"></div>
+              <div className="w-px h-3.5 bg-gray-200 mx-2"></div>
               <button 
                 onClick={(e) => { e.stopPropagation(); onTogglePin(); }} 
-                className={`p-1 rounded-full hover:bg-gray-100 transition-colors ${isPinned ? 'text-blue-600' : 'text-gray-400'}`}
+                className={`p-1.5 rounded-full hover:bg-gray-100 transition-colors ${isPinned ? 'text-blue-600 bg-blue-50' : 'text-gray-400 hover:text-gray-600'}`}
+                title={isPinned ? "取消固定" : "固定状态栏"}
               >
-                {isPinned ? <Pin size={10} fill="currentColor"/> : <PinOff size={10} />}
+                {isPinned ? <Pin size={12} fill="currentColor"/> : <PinOff size={12} />}
               </button>
             </>
           )}
