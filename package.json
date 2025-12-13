@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:inline": "vite build && node inline-build.js",
     "preview": "vite preview"
   },
   "dependencies": {
